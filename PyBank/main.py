@@ -3,19 +3,17 @@ import csv
 import statistics
 import math
 
-
 #declaring variables
 
 Total_Months = 0
 net_total  = 0
-p_profitloss = 0 
-Average_change = 0 
-max_increase = 0 
-min_increase= 0 
-Total = 0 
-net_change = 0 
-netchange = []
-months= []
+profit_loss = []
+largest_increase_date = ""
+largest_increase_amount = 0 
+change = []
+largest_decrease_date = ""
+largest_decrease_amount = 0
+
 
 
 #Setting up CSV Path
@@ -30,57 +28,33 @@ with open(csvpath) as csvfile:
 # Skipping the header to go to values
     header = next(csvreader)
 
-#Setting loop to start on second row 
-    first_row = next(csvreader)
-    Total_Months += 1 
-    net_total  += int(first_row[1])
-    p_profitloss = int(first_row[1])
+    for i, row in enumerate(csvreader):
+        Total_Months = Total_Months + 1
+        #netTotal = netTotal + int(row[1])
+        profit_loss.append(int(row[1]))
+        if i > 0:
+            change_row = int(row[1]) - int(previous_row[1])
+            change.append(change_row)
+            if  change_row > largest_increase_amount:
+                largest_increase_amount = change_row
+                largest_increase_date = row[0]
+            if change_row < largest_decrease_amount:
+                largest_decrease_amount = change_row
+                largest_decrease_date = row[0]
+        previous_row = row
+        
+sum_profit_loss = sum(profit_loss)
+average_change = sum(change) / len(change)
+avg_change_rounded = round(average_change, 2)
 
- #Iterating through the rows
-    for row in csvreader:
-
-    #Counting month & Totals
-        Total_Months += 1
-        net_total += (first_row[1])
-
-#Adding months to the list/appending months     
-    months.append(first_row[0])
-
-# Monthly changes
-    net_change = int(first_row[1]) - p_profitloss
-
-#appending each month's P/L to the list 
-    netchange.append(net_change)    
-
-#Next months P/L 
-
-    p_profitloss = int(first_row[1])
-
-#Calculating the average changes monthly
-Average_change = round(statistics.mean(netchange), 2)
-
-
-#Max Increases 
-max_increase = round(max(netchange), 2)
-maxmonth = months[netchange.index(max_increase)]
-
-
-
-min_increase = round(min(netchange), 2)
-minmonth = months[netchange.index(min_increase)]
-
-#Final Analysis 
-
-print("--------------------------Financial Analysis------------------------")
-print("--------------------------------------------------------------------")
-print(f"Total Months: {Total_Months}")
-print(f"Net Total : ${Total}")
-print(f"Average Change: ${Average_change}")
-print(f"Greatest Increase in Profits: {maxmonth}  (${max_increase})")
-print(f"Greatest Decrease in Profits: {minmonth} (${min_increase})")
-
-
-
-
-
-
+output = (f'''
+Financial Analysis
+----------------------------
+Total Months: {Total_Months}
+Total: ${sum_profit_loss}
+Average  Change: ${avg_change_rounded}
+Greatest Increase in Profits: {largest_increase_date} (${largest_increase_amount})
+Greatest Decrease in Profits:  {largest_decrease_date} (${largest_decrease_amount})
+''')
+#print analysis to terminal 
+print(output)
