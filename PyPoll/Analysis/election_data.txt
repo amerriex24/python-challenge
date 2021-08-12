@@ -1,0 +1,9 @@
+---Election Results---
+----------------------
+-Total Votes: 3521001-
+----------------------
+for i in range(len(candidate))
+O'Tooley: 3.0% (105630)
+----------------------
+Winner: Khan)
+----------------------

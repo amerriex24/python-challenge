@@ -4,6 +4,7 @@ import csv
 import os
 #Loading files 
 csvpath = os.path.join( "Resources", "election_data.csv")
+output_path = os.path. join("./Analysis", "election_data.txt")
 
 #Creaed Variables and assigned values. 
 total_vote = 0 
@@ -36,30 +37,21 @@ for i in range(len(votes_per)):
         winner_i = i 
 
 
+output = (
 
-print("---Election Results---")
-print("----------------------")
-print(f"-Total Votes: {total_vote}-")
-print("----------------------")
-for i in range(len(candidate)):
-    print(f"{candidate[i]}: {round(vote_percentage[i], 3)}% ({votes_per[i]})")
+    f"---Election Results---\n"
+    f"----------------------\n"
+    f"-Total Votes: {total_vote}-\n"
+    f"----------------------\n"
+    "for i in range(len(candidate))\n"
+    f"{candidate[i]}: {round(vote_percentage[i], 3)}% ({votes_per[i]})\n"
 
-print("----------------------")
-print(f"Winner: {candidate[winner_i]}")
-print("----------------------")
+    f"----------------------\n"
+    f"Winner: {candidate[winner_i]})\n"
+    f"----------------------\n")
+print(output)
 
-
-output_path = os.path. join("./Analysis", "election_data.txt")
-with open(output_path, 'w') as txtfile:
-    print("---Election Results---")
-    print("----------------------")
-    print(f"-Total Votes: {total_vote}-")
-    print("----------------------")
-    for i in range(len(candidate)):
-        print(f"{candidate[i]}: {round(vote_percentage[i], 3)}% ({votes_per[i]})")
-
-print("----------------------")
-print(f"Winner: {candidate[winner_i]}")
-print("----------------------")
-
-
+output_path = open('Analysis/election_data.txt', 'w') 
+output_path.write(output)
+output_path.close()
+    
