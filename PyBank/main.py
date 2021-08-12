@@ -58,3 +58,7 @@ Greatest Decrease in Profits:  {largest_decrease_date} (${largest_decrease_amoun
 ''')
 #print analysis to terminal 
 print(output)
+
+#Sending data to txt file 
+with open(output, "w") as txt_file:
+    txt_file.write(output)
