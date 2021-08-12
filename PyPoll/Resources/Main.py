@@ -49,7 +49,7 @@ print(f"Winner: {candidate[winner_i]}")
 print("----------------------")
 
 
-output_path = os.path. join("Resources", "election_data.csv")
+output_path = os.path. join("Analysis", "election_data.txt")
 with open(output_path, 'w') as txtfile:
     print("---Election Results---")
     print("----------------------")
@@ -61,4 +61,5 @@ with open(output_path, 'w') as txtfile:
 print("----------------------")
 print(f"Winner: {candidate[winner_i]}")
 print("----------------------")
+
 
